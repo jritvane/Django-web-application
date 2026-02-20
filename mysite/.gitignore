@@ -1,0 +1,11 @@
+# Pythonin väliaikaistiedostot
+__pycache__/
+*.pyc
+
+# Djangon paikallinen tietokanta (TÄRKEÄ!)
+db.sqlite3
+
+# Mahdolliset virtuaaliympäristöt ja asennuskansiot
+venv/
+env/
+.env

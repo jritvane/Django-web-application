@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="material-symbols-outlined">edit_square</span>
+            Tehtävät
+        </h1>
+
+        <form method="POST" class="add-form">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Kirjoita uusi tehtävä..." required>
+            <button type="submit" class="btn-add">Lisää</button>
+        </form>
+
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <span>{{ task.title }}</span>
+                    <div class="actions">
+                        <span class="status {% if task.completed %}done{% else %}pending{% endif %}">
+                            {% if task.completed %}Valmis{% else %}Kesken{% endif %}
+                        </span>
+                        <a href="{% url 'delete_task' task.id %}" class="btn-delete">
+                            <span class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span>
+                        </a>
+                    </div>
+                </li>
+            {% empty %}
+                <li style="justify-content: center; color: #6b7280;">Ei tehtäviä. Ota rennosti!</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
